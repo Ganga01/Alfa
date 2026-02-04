@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Alfa — Доска и 8 лет статья РФ</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: "Segoe UI", "Inter", system-ui, -apple-system, sans-serif;
+        --bg: #f6f4f1;
+        --card: #ffffff;
+        --accent: #d16a4a;
+        --accent-dark: #b15439;
+        --text: #2e2623;
+        --muted: #6f5f57;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+      }
+
+      header {
+        padding: 32px 24px 0;
+        text-align: center;
+      }
+
+      header h1 {
+        margin: 0 0 8px;
+        font-size: 32px;
+      }
+
+      header p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .tabs {
+        max-width: 960px;
+        margin: 24px auto 48px;
+        padding: 0 24px 32px;
+      }
+
+      .tab-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+      }
+
+      .tab-buttons button {
+        border: 2px solid transparent;
+        background: var(--card);
+        color: var(--text);
+        padding: 12px 20px;
+        border-radius: 999px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.2s ease;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      }
+
+      .tab-buttons button[aria-selected="true"] {
+        border-color: var(--accent);
+        color: var(--accent-dark);
+        background: #fff5f1;
+      }
+
+      .tab-panel {
+        margin-top: 24px;
+        background: var(--card);
+        border-radius: 24px;
+        padding: 28px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      }
+
+      .board-illustration {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 16px;
+        align-items: center;
+      }
+
+      .board-illustration svg {
+        width: 100%;
+        max-width: 520px;
+        margin: 0 auto;
+      }
+
+      .article {
+        display: grid;
+        gap: 16px;
+      }
+
+      .article a {
+        color: var(--accent-dark);
+        font-weight: 600;
+      }
+
+      footer {
+        text-align: center;
+        padding: 16px 24px 32px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Интерактивная страница</h1>
+      <p>Выберите вкладку, чтобы увидеть нужный раздел.</p>
+    </header>
+
+    <main class="tabs">
+      <div class="tab-buttons" role="tablist">
+        <button type="button" role="tab" aria-selected="true" aria-controls="board" id="tab-board">
+          Доска
+        </button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="article" id="tab-article">
+          8 лет статья РФ
+        </button>
+      </div>
+
+      <section class="tab-panel" role="tabpanel" id="board" aria-labelledby="tab-board">
+        <div class="board-illustration">
+          <h2>Гладильная доска</h2>
+          <p>
+            При открытии вкладки «Доска» отображается мягкая иллюстрация гладильной
+            доски, чтобы сразу было понятно, куда вы попали.
+          </p>
+          <svg viewBox="0 0 520 260" xmlns="http://www.w3.org/2000/svg" aria-label="Гладильная доска">
+            <defs>
+              <linearGradient id="board" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0%" stop-color="#f4d5c4" />
+                <stop offset="100%" stop-color="#e4b8a3" />
+              </linearGradient>
+            </defs>
+            <rect x="40" y="40" width="440" height="120" rx="60" fill="url(#board)" />
+            <rect x="230" y="150" width="60" height="70" rx="20" fill="#c39a86" />
+            <path d="M200 210 L120 250" stroke="#6f5f57" stroke-width="8" stroke-linecap="round" />
+            <path d="M320 210 L400 250" stroke="#6f5f57" stroke-width="8" stroke-linecap="round" />
+            <circle cx="120" cy="250" r="10" fill="#6f5f57" />
+            <circle cx="400" cy="250" r="10" fill="#6f5f57" />
+          </svg>
+        </div>
+      </section>
+
+      <section class="tab-panel" role="tabpanel" id="article" aria-labelledby="tab-article" hidden>
+        <div class="article">
+          <h2>8 лет — статья РФ</h2>
+          <p>
+            Здесь можно разместить информацию о статье. По кнопке ниже пользователь
+            может перейти к материалу на сайте «8лет.рф».
+          </p>
+          <a href="https://8let.rf" target="_blank" rel="noreferrer">Перейти к статье на 8лет.рф</a>
+          <p>
+            Если вам нужно другое содержание или оформление — сообщите, я обновлю
+            раздел.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer>Сайт создан по запросу: «Доска» и «8 лет статья РФ».</footer>
+
+    <script>
+      const tabs = document.querySelectorAll("[role='tab']");
+      const panels = document.querySelectorAll("[role='tabpanel']");
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          tabs.forEach((btn) => btn.setAttribute("aria-selected", "false"));
+          panels.forEach((panel) => panel.setAttribute("hidden", ""));
+
+          tab.setAttribute("aria-selected", "true");
+          const targetPanel = document.getElementById(tab.getAttribute("aria-controls"));
+          if (targetPanel) {
+            targetPanel.removeAttribute("hidden");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
